@@ -1,13 +1,14 @@
+'use client'
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { Eye, Pen } from "lucide-react";
+import { Eye, Pen, Plus } from "lucide-react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { useMutation } from "@tanstack/react-query";
-import { updatePost } from "@/services/api";
+import { createPost, updatePost } from "@/services/api";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -16,12 +17,12 @@ const validationSchema = Yup.object({
   body: Yup.string().required('Body is required'),
 });
 
-export const EditModal = ({ data }: { data: post }) => {
+export const CreateModal = () => {
   const [open, setOpen] = useState(false);
 
   const { mutate } = useMutation({
-    mutationFn: async (formData: post) => {
-      return updatePost(formData);
+    mutationFn: async (formData: Omit<post, 'id' | 'userId'>) => {
+      return createPost(formData);
     },
     onSuccess: (data) => {
       toast.success('Success')
@@ -35,12 +36,12 @@ export const EditModal = ({ data }: { data: post }) => {
 
   const formik = useFormik({
     initialValues: {
-      title: data.title,
-      body: data.body,
+      title: '',
+      body: '',
     },
     validationSchema,
     onSubmit: (values) => {
-      mutate({ ...data, ...values })
+      mutate(values)
       console.log(values);
       // Handle form submission
     },
@@ -49,20 +50,20 @@ export const EditModal = ({ data }: { data: post }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex justify-between w-full">
-          <p>Edit</p>
-          <Pen className="stroke-pryColor" />
+        <Button variant="default" className="flex justify-between ">
+          <p>Create</p>
+          <Plus className="stroke-pryColor" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={formik.handleSubmit}>
           <DialogHeader className="mb-5">
             <DialogTitle className="text-xl">
-              Edit post
+              Create post
             </DialogTitle>
-            <strong className="mt-3 text-sm font-medium underline">
+            {/* <strong className="mt-3 text-sm font-medium underline">
               UserId: {data.userId}
-            </strong>
+            </strong> */}
           </DialogHeader>
           <div className="grid gap-5">
             <div className=" ">

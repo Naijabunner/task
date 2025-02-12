@@ -20,13 +20,15 @@ import { Button } from "../ui/button"
 
 interface DataTableProps<post, TValue> {
   columns: ColumnDef<post, TValue>[]
-  data: post[]
+  data: post[] | [],
+  isLoading: boolean
 }
 
 export function DataTable<post, TValue>({
   columns,
+  isLoading,
   data,
-}: DataTableProps<post, TValue>) {
+}: DataTableProps<post, TValue> & { isLoading: boolean }) {
   const table = useReactTable({
     data,
     columns,
@@ -62,7 +64,13 @@ export function DataTable<post, TValue>({
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
+          {isLoading ? (
+            <TableRow>
+              <TableCell colSpan={columns.length} className="h-24 text-center">
+                Loading...
+              </TableCell>
+            </TableRow>
+          ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}

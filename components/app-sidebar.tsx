@@ -2,20 +2,14 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
   BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
   Settings2,
-  SquareTerminal,
+  User,
+  FileText,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
+// import { NavPosts } from "@/components/nav-posts"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import {
@@ -29,33 +23,33 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "Ibcscorp User",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Blog Admin",
+    email: "admin@blog.com",
+    avatar: "/avatars/admin.jpg",
   },
   teams: [
     {
-      name: "Ibcscorp Corp",
-      logo: GalleryVerticalEnd,
-      plan: "POST",
+      name: "Blog Team",
+      logo: BookOpen,
+      plan: "PRO",
     },
   ],
 
-  projects: [
+  posts: [
     {
-      name: "Design Engineering",
+      title: "Understanding React",
       url: "#",
-      icon: Frame,
+      icon: FileText,
     },
     {
-      name: "Sales & Marketing",
+      title: "Advanced TypeScript",
       url: "#",
-      icon: PieChart,
+      icon: FileText,
     },
     {
-      name: "Travel",
+      title: "Web Development Trends",
       url: "#",
-      icon: Map,
+      icon: FileText,
     },
   ],
 }
@@ -67,7 +61,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
+        {/* <NavPosts posts={data.posts} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

@@ -1,23 +1,23 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
-const url =''
+const url ='https://jsonplaceholder.typicode.com/posts/'
 
-const getPost = async()=>{
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+export const getPost = async(): Promise<AxiosResponse<post[]>>=>{
+    const response = await axios.get(`${url}`);
     return response
 }
 
-const createPost = async(post:post)=>{
-    const response = await axios.post('https://jsonplaceholder.typicode.com/posts');
+export const createPost = async(post:Omit<post, 'id' | 'userId'>)=>{
+    const response = await axios.post(`${url}`);
     return response
 }
 
-const updatePost = async(post:post)=>{
-    const response = await axios.put('https://jsonplaceholder.typicode.com/posts',post);
+export const updatePost = async(post:post)=>{
+    const response = await axios.put(`${url}${post.id}`,post);
     return response
 }
 
-const deletePost = async(post:post)=>{
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+export const deletePost = async(post:post)=>{
+    const response = await axios.delete(`${url}${post.id}`);
     return response
 }
