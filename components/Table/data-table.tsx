@@ -36,7 +36,7 @@ export function DataTable<post, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     initialState: {
       pagination: {
-        pageSize: 10, // Default page size
+        pageSize: 10,
       },
     },
   },
@@ -65,11 +65,7 @@ export function DataTable<post, TValue>({
         </TableHeader>
         <TableBody>
           {isLoading ? (
-            <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                Loading...
-              </TableCell>
-            </TableRow>
+            <DataTableSkeleton arr={table.getHeaderGroups()[0]?.headers.length || 0} /> 
           ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -111,5 +107,21 @@ export function DataTable<post, TValue>({
         </Button>
       </div>
     </div>
+  )
+}
+
+export function DataTableSkeleton({ arr }:{ arr: number}) {
+  return (
+    <>
+      {Array.from({length:arr}).map((_,index) => (
+        <TableRow key={index} className="">
+          {Array.from({length:arr}).map((_,index) => (
+            <TableCell key={index} className="py-5">
+              <div className="h-4 w-[80%] bg-gray-200 animate-pulse rounded" />
+            </TableCell>
+          ))}
+        </TableRow>
+      ))}
+    </>
   )
 }
