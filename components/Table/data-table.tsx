@@ -54,9 +54,9 @@ export function DataTable<post, TValue>({
                     {header.isPlaceholder
                       ? null
                       : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
                   </TableHead>
                 )
               })}
@@ -65,7 +65,7 @@ export function DataTable<post, TValue>({
         </TableHeader>
         <TableBody>
           {isLoading ? (
-            <DataTableSkeleton arr={table.getHeaderGroups()[0]?.headers.length || 0} /> 
+            <DataTableSkeleton arr={table.getHeaderGroups()[0]?.headers.length || 0} />
           ) : table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -110,12 +110,12 @@ export function DataTable<post, TValue>({
   )
 }
 
-export function DataTableSkeleton({ arr }:{ arr: number}) {
+export function DataTableSkeleton({ arr }: { arr: number }) {
   return (
     <>
-      {Array.from({length:arr}).map((_,index) => (
+      {Array.from({ length: arr }).map((_, index) => (
         <TableRow key={index} className="">
-          {Array.from({length:arr}).map((_,index) => (
+          {Array.from({ length: arr }).map((_, index) => (
             <TableCell key={index} className="py-5">
               <div className="h-4 w-[80%] bg-gray-200 animate-pulse rounded" />
             </TableCell>

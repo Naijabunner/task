@@ -1,4 +1,3 @@
-import { CreateModal } from "@/components/Modal/CreateModal";
 import PostPage from "@/components/Table/PostTable";
 import { StickyNote, User } from "lucide-react";
 
